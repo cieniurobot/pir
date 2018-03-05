@@ -1,10 +1,12 @@
 import RPi.GPIO as GPIO
 import time
 import urllib
+import json
+
 
 DOMOTICZ_SWITCH_ID = 1
 DOMOTICZ_SWITCH_URL = "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx={0}&switchcmd=On".format(DOMOTICZ_SWITCH_ID)
-PIR_LOG = "/home/pi/pir.log"
+PIR_LOG = "/home/pi/pir.json"
 GPIO.setmode(GPIO.BCM)
 PIR_PIN = 23
 GPIO.setup(PIR_PIN, GPIO.IN)
@@ -16,7 +18,11 @@ class Pir():
 
     def write_log(self, message):
         with open(PIR_LOG, 'a') as file:
-            file.write('{0} - {1}\n'.format(time.strftime("%Y-%m-%d %H:%M"), message))
+            data = {
+                message: message,
+                created_at: time.strftime("%Y-%m-%d %H:%M")
+            }
+            json.dump(data, file, sort_keys = True, indent = 4, ensure_ascii = False)
 
     def start(self):
         try:
@@ -29,7 +35,7 @@ class Pir():
                 self.current_state = GPIO.input(PIR_PIN)
                 if self.current_state != self.previous_state:
                     print("Motion Detected!")
-                    httpresponse = urllib.urlopen (DOMOTICZ_SWITCH_URL)
+                    httpresponse = urllib.urlopen(DOMOTICZ_SWITCH_URL)
                     print(httpresponse.read())
                 self.write_log(self.current_state)
         except KeyboardInterrupt:
