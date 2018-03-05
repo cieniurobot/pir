@@ -31,7 +31,7 @@ class Pir():
                     print("Motion Detected!")
                     httpresponse = urllib.urlopen (DOMOTICZ_SWITCH_URL)
                     print(httpresponse.read())
-                write_log(self.current_state)
+                self.write_log(self.current_state)
         except KeyboardInterrupt:
             print("Quit")
             GPIO.cleanup()
