@@ -4,7 +4,7 @@ import urllib
 
 DOMOTICZ_SWITCH_ID = 1
 DOMOTICZ_SWITCH_URL = "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx={0}&switchcmd=On".format(DOMOTICZ_SWITCH_ID)
-PIR_LOG = "/home/pi/pirlog.log"
+PIR_LOG = "/home/pi/pir.log"
 GPIO.setmode(GPIO.BCM)
 PIR_PIN = 23
 GPIO.setup(PIR_PIN, GPIO.IN)
