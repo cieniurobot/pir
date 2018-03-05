@@ -19,8 +19,8 @@ class Pir():
     def write_log(self, message):
         with open(PIR_LOG, 'a') as file:
             data = {
-                message: message,
-                created_at: time.strftime("%Y-%m-%d %H:%M")
+                "message": message,
+                "created_at": time.strftime("%Y-%m-%d %H:%M")
             }
             json.dump(data, file, sort_keys = True, indent = 4, ensure_ascii = False)
 
