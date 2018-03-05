@@ -15,8 +15,9 @@ class Pir():
     current_state = False
 
     def write_log(self, message):
-        with open(PIR_LOG, 'a') as file:
-            file.write("{0} - {1}\n".format(time.strftime("%Y-%m-%d %H:%M"),message))
+        file = open(PIR_LOG, 'a')
+        file.write("{0} - {1}".format(time.strftime("%Y-%m-%d %H:%M"), message))
+        file.close()
 
     def start(self):
         try:
