@@ -16,10 +16,10 @@ class Pir():
     previous_state = False
     current_state = False
 
-    def write_log(self, message):
-        with open(PIR_LOG, 'a') as file:
+    def write_state_log(self, state):
+        with open(PIR_LOG, 'w') as file:
             data = {
-                "message": message,
+                "state": state,
                 "created_at": time.strftime("%Y-%m-%d %H:%M")
             }
             json.dump(data, file, sort_keys = True, indent = 4, ensure_ascii = False)
@@ -37,7 +37,7 @@ class Pir():
                     print("Motion Detected!")
                     httpresponse = urllib.urlopen(DOMOTICZ_SWITCH_URL)
                     print(httpresponse.read())
-                self.write_log(self.current_state)
+                self.write_state_log(self.current_state)
         except KeyboardInterrupt:
             print("Quit")
             GPIO.cleanup()
