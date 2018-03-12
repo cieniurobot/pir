@@ -17,7 +17,7 @@ class Pir():
     current_state = False
     app = Flask(__name__)
 
-    @self.app.route("/")
+    @app.route("/")
     def get_pir_state(self):
         return self.current_state
 
