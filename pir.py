@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import urllib
 import json
-from flask import Flask
+
 
 DOMOTICZ_SWITCH_ID = 1
 DOMOTICZ_SWITCH_URL = "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx={0}&switchcmd=On".format(DOMOTICZ_SWITCH_ID)
@@ -15,11 +15,6 @@ GPIO.setup(PIR_PIN, GPIO.IN)
 class Pir():
     previous_state = False
     current_state = False
-    app = Flask(__name__)
-
-    @app.route("/")
-    def get_pir_state(self):
-        return self.current_state
 
     def write_state_log(self, state):
         with open(PIR_LOG, 'w') as file:
